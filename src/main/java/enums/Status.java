@@ -33,9 +33,9 @@ public enum Status {
 		if (codigo == null) {
 			return null;
 		}
-		for (Perfil p : Perfil.values()) {
-			if (codigo.equals(p.getCodigo())) {
-				return p;
+		for (Status status : Status.values()) {
+			if (codigo.equals(status.getCodigo())) {
+				return status;
 			}
 		}
 		throw new IllegalArgumentException("Status inválido.");

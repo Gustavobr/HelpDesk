@@ -33,9 +33,9 @@ public enum Prioridade {
 		if (codigo == null) {
 			return null;
 		}
-		for (Perfil p : Perfil.values()) {
-			if (codigo.equals(p.getCodigo())) {
-				return p;
+		for (Prioridade prioridade : Prioridade.values()) {
+			if (codigo.equals(prioridade.getCodigo())) {
+				return prioridade;
 			}
 		}
 		throw new IllegalArgumentException("Prioridade inválida.");

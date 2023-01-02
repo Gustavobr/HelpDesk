@@ -1,19 +1,37 @@
 package br.com.qintess.domain;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import enums.Perfil;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-public abstract class Pessoa {
+@Entity(name = "TB_PESSOA")
+public abstract class Pessoa implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 	protected String nome;
-
+	@Column(unique = true)
 	protected String cpf;
 
 	public Integer getId() {
@@ -79,7 +97,7 @@ public abstract class Pessoa {
 			try {
 				return Perfil.to_ENUM(x);
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 			return null;
@@ -87,7 +105,7 @@ public abstract class Pessoa {
 	}
 
 	public void addPerfil(Perfil perfil) {
-		this.perfis.add(perfil.getCodigo()); 
+		this.perfis.add(perfil.getCodigo());
 	}
 
 	public LocalDate getDataCriacao() {
@@ -98,12 +116,16 @@ public abstract class Pessoa {
 		this.dataCriacao = dataCriacao;
 	}
 
+	@Column(unique = true)
 	protected String email;
 
 	protected String senha;
 
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "perfis")
 	protected Set<Integer> perfis = new HashSet<>();
-
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 
 	public Pessoa() {
