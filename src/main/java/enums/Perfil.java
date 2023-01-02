@@ -1,4 +1,4 @@
-package br.com.qintess.domain.enums;
+package enums;
 
 import java.io.IOException;
 
