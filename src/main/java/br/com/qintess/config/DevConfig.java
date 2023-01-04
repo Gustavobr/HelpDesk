@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import br.com.qintess.service.DBService;
 
 @Configuration
-@Profile("dev")
+@Profile(value = {"dev"})
 public class DevConfig {
 
 	
@@ -22,6 +22,9 @@ public class DevConfig {
 	
 	@Bean
 	public boolean initDB() {
+		//if(value.equalsIgnoreCase("update")|| value.equalsIgnoreCase("none")) {
+			
+		//}
 		if(value.equals("create")) {
 			this.service.initDB();
 		}

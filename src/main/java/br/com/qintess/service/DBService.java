@@ -41,12 +41,14 @@ public class DBService {
 
 		Chamado c1 = new Chamado(null, Prioridade.BAIXA, enums.Status.ABERTO, "Troca de HD", "HD SATA NOVO", tec1,
 				cli1);
+		Chamado c2 = new Chamado(null, Prioridade.BAIXA, enums.Status.ABERTO, "Troca de Placa mãe", "Placa Gigabyte nova", tec1,
+				cli1);
 
 		/* Adding the values on tables */
 
 		tecnicoRepo.saveAll(Arrays.asList(tec1));
 		clienteRepo.saveAll(Arrays.asList(cli1));
-		chamadoRepo.saveAll(Arrays.asList(c1));
+		chamadoRepo.saveAll(Arrays.asList(c1,c2));
 	}
 
 }
