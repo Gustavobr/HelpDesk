@@ -16,9 +16,10 @@ public class TecnicoService {
 
 	private TecnicoRepository tecnicoRepo;
 
-	public Optional<Tecnico> findById(Integer id) {
+	public Tecnico findById(Integer id) {
 		try {
-			return tecnicoRepo.findById(id);
+			return tecnicoRepo.findById(id)
+					.orElseThrow(() -> new ObjectNotFoundException("Técnico não encontrado. ID:" + " " + id));
 		} catch (Exception ex) {
 			throw new EntityNotFoundException("Tecnico não encontrado!");
 		}

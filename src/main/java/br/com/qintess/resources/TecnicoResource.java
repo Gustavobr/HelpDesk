@@ -34,10 +34,10 @@ public class TecnicoResource {
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable(required = true, value = "id") Integer id)
 			throws Exception, IOException {
 		try {
-			if (service.findById(id).isPresent()) {
-				Tecnico obj = service.findById(id).get();
+			
+				Tecnico obj = service.findById(id);
 				return ResponseEntity.ok().body(new TecnicoDTO(obj));
-			}
+			
 		} catch (Exception ex) {
 
 		}
