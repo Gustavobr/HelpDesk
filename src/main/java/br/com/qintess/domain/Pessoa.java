@@ -97,7 +97,7 @@ public abstract class Pessoa implements Serializable {
 			try {
 				return Perfil.to_ENUM(x);
 			} catch (IOException e) {
-
+				
 				e.printStackTrace();
 			}
 			return null;
@@ -124,7 +124,7 @@ public abstract class Pessoa implements Serializable {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "perfis")
 	protected Set<Integer> perfis = new HashSet<>();
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 

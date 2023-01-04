@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.qintess.DTO.TecnicoDTO;
 import br.com.qintess.domain.Tecnico;
 import br.com.qintess.service.TecnicoService;
 
@@ -30,12 +31,12 @@ public class TecnicoResource {
 	@ResponseBody
 	@org.springframework.transaction.annotation.Transactional
 	@CacheEvict(allEntries = true)
-	public ResponseEntity<Tecnico> findById(@PathVariable(required = true, value = "id") Integer id)
+	public ResponseEntity<TecnicoDTO> findById(@PathVariable(required = true, value = "id") Integer id)
 			throws Exception, IOException {
 		try {
 			if (service.findById(id).isPresent()) {
 				Tecnico obj = service.findById(id).get();
-				return ResponseEntity.ok().body(obj);
+				return ResponseEntity.ok().body(new TecnicoDTO(obj));
 			}
 		} catch (Exception ex) {
 

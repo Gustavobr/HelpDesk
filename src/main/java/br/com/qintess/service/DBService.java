@@ -29,9 +29,9 @@ public class DBService {
 
 	public void initDB() {
 		byte[] pass = "root".getBytes();
-		Tecnico tec1 = new Tecnico(null, "Roger Cesar", "98938100678", "rogercesar@gmail.com",
-				Base64.encodeBase64String(pass));
-		tec1.addPerfil(Perfil.ADMIN);
+		Tecnico tec1 = new Tecnico(null, "Roger Pereira", "989381003467", "rogerpereira@gmail.com",
+				Base64.encodeBase64String(pass).toString(), 2);
+		tec1.addPerfil(Perfil.TECNICO);
 
 		byte[] pass1 = "mestre".getBytes();
 
@@ -41,7 +41,7 @@ public class DBService {
 
 		Chamado c1 = new Chamado(null, Prioridade.BAIXA, enums.Status.ABERTO, "Troca de HD", "HD SATA NOVO", tec1,
 				cli1);
-		Chamado c2 = new Chamado(null, Prioridade.BAIXA, enums.Status.ABERTO, "Troca de Placa mãe", "Placa Gigabyte nova", tec1,
+		Chamado c2 = new Chamado(null, Prioridade.BAIXA, enums.Status.ABERTO, "Troca de HD", "HD SATA NOVO", tec1,
 				cli1);
 
 		/* Adding the values on tables */
