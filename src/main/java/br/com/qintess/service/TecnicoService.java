@@ -1,10 +1,12 @@
 package br.com.qintess.service;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.qintess.DTO.TecnicoDTO;
 import br.com.qintess.domain.Tecnico;
 import br.com.qintess.repositories.TecnicoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +26,16 @@ public class TecnicoService {
 			throw new EntityNotFoundException("Tecnico não encontrado!");
 		}
 
+	}
+
+	public List<Tecnico> findAll() {
+		try {
+			List<Tecnico> list = tecnicoRepo.findAll();
+			return list;
+		} catch (Exception ex) {
+
+		}
+		return null;
 	}
 
 }

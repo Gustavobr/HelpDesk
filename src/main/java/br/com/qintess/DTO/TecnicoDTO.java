@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.qintess.domain.Tecnico;
+import enums.Perfil;
 
 public class TecnicoDTO implements Serializable {
 
@@ -23,6 +24,18 @@ public class TecnicoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public TecnicoDTO(Integer id, String nome, String cpf, String email, String senha, Set<Integer> perfis,
+			LocalDate dataCriacao) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
+		this.senha = senha;
+		this.perfis = perfis;
+		this.dataCriacao = dataCriacao;
+	}
+
 	protected Integer id;
 	protected String nome;
 
@@ -35,6 +48,11 @@ public class TecnicoDTO implements Serializable {
 		this.senha = obj.getSenha();
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = obj.getDataCriacao();
+	}
+
+	public TecnicoDTO(Object object, String nome2, String cpf2, String email2, String senha2, Integer perfil,
+			LocalDate dataCriacao2) {
+		
 	}
 
 	public Integer getId() {

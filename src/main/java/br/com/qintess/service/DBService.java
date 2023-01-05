@@ -35,8 +35,8 @@ public class DBService {
 
 		byte[] pass1 = "mestre".getBytes();
 
-		Cliente cli1 = new Cliente(null, "linus Torvalds", "98946588765", "linus@outlook.com",
-				Base64.encodeBase64String(pass1));
+		Cliente cli1 = new Cliente(null, "linus torvaldsl", "0943995490", "linustorvalds@gmail.com",
+				Base64.encodeBase64String(pass1), 2);
 		cli1.addPerfil(Perfil.CLIENTE);
 
 		Chamado c1 = new Chamado(null, Prioridade.BAIXA, enums.Status.ABERTO, "Troca de HD", "HD SATA NOVO", tec1,
@@ -48,7 +48,7 @@ public class DBService {
 
 		tecnicoRepo.saveAll(Arrays.asList(tec1));
 		clienteRepo.saveAll(Arrays.asList(cli1));
-		chamadoRepo.saveAll(Arrays.asList(c1,c2));
+		chamadoRepo.saveAll(Arrays.asList(c1, c2));
 	}
 
 }

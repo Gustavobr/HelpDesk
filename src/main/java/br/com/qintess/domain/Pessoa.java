@@ -97,7 +97,7 @@ public abstract class Pessoa implements Serializable {
 			try {
 				return Perfil.to_ENUM(x);
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 			return null;
@@ -105,7 +105,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public void addPerfil(Perfil perfil) {
-		this.perfis.add(perfil.getCodigo());
+		perfis.add(perfil.getCodigo());
 	}
 
 	public LocalDate getDataCriacao() {
@@ -119,11 +119,26 @@ public abstract class Pessoa implements Serializable {
 	@Column(unique = true)
 	protected String email;
 
+	@Column(name = "Codigo")
+	protected Integer codigo;
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public void setPerfis(Set<Integer> perfis) {
+		this.perfis = perfis;
+	}
+
 	protected String senha;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "perfis")
-	protected Set<Integer> perfis = new HashSet<>();
+	public Set<Integer> perfis = new HashSet<>();
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
@@ -133,13 +148,14 @@ public abstract class Pessoa implements Serializable {
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
+	public Pessoa(Integer id, String nome, String cpf, String email, String senha, Integer codigo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
+		this.codigo = codigo;
 
 	}
 

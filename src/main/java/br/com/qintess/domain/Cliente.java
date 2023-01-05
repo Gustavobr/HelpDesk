@@ -23,8 +23,8 @@ public class Cliente extends Pessoa implements Serializable {
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Cliente(Integer id, String nome, String cpf, String email, String senha) {
-		super(id, nome, cpf, email, senha);
+	public Cliente(Integer id, String nome, String cpf, String email, String senha, Integer codigo) {
+		super(id, nome, cpf, email, senha, codigo);
 		addPerfil(Perfil.CLIENTE);
 	}
 
