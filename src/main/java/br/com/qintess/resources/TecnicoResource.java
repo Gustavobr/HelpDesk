@@ -1,11 +1,12 @@
 package br.com.qintess.resources;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -15,20 +16,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.qintess.DTO.TecnicoDTO;
 import br.com.qintess.domain.Tecnico;
 import br.com.qintess.service.TecnicoService;
-import enums.Perfil;
 
 @RestController
 @RequestMapping(value = "/tecnicos")
 public class TecnicoResource {
 
+	private static List<TecnicoDTO> listDTO = new ArrayList<>();
 	@Autowired(required = true)
 	private TecnicoService service;
 
@@ -50,7 +54,14 @@ public class TecnicoResource {
 
 	}
 
-	static List<TecnicoDTO> listDTO = new ArrayList<>();
+	@PostMapping
+	public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO tecDTO) throws IOException, URISyntaxException {
+		Tecnico tecnico = service.create(tecDTO);
+		URI uriObj = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId())
+				.toUri();
+		return ResponseEntity.created(uriObj).build();
+
+	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

@@ -9,13 +9,15 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.qintess.domain.Pessoa;
 import br.com.qintess.domain.Tecnico;
 import enums.Perfil;
 
-public class TecnicoDTO implements Serializable {
+public class TecnicoDTO extends Pessoa implements Serializable {
 
 	public TecnicoDTO() {
 		super();
+		addPerfil(Perfil.TECNICO);
 
 	}
 
@@ -24,16 +26,17 @@ public class TecnicoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public TecnicoDTO(Integer id, String nome, String cpf, String email, String senha, Set<Integer> perfis,
-			LocalDate dataCriacao) {
+	public TecnicoDTO(Integer id, String nome, String cpf, String email, String senha, LocalDate dataCriacao,
+			Integer codigo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
-		this.perfis = perfis;
+		// this.perfis = perfis;
 		this.dataCriacao = dataCriacao;
+		this.codigo = codigo;
 	}
 
 	protected Integer id;
@@ -52,7 +55,7 @@ public class TecnicoDTO implements Serializable {
 
 	public TecnicoDTO(Object object, String nome2, String cpf2, String email2, String senha2, Integer perfil,
 			LocalDate dataCriacao2) {
-		
+
 	}
 
 	public Integer getId() {
@@ -95,8 +98,16 @@ public class TecnicoDTO implements Serializable {
 		this.senha = senha;
 	}
 
-	public Set<Integer> getPerfis() {
-		return perfis;
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> {
+			try {
+				return Perfil.to_ENUM(x);
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+			return null;
+		}).collect(Collectors.toSet());
 	}
 
 	public void setPerfis(Set<Integer> perfis) {
@@ -116,6 +127,16 @@ public class TecnicoDTO implements Serializable {
 	protected String email;
 
 	protected String senha;
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	protected Integer codigo;
 
 	protected Set<Integer> perfis = new HashSet<>();
 

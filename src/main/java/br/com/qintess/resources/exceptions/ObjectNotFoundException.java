@@ -1,4 +1,4 @@
-package br.com.qintess.service;
+package br.com.qintess.resources.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException{
 

@@ -1,7 +1,6 @@
 package br.com.qintess.resources.exceptions;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 public class StandardError implements Serializable {
 
