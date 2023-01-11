@@ -1,14 +1,16 @@
 package br.com.qintess.domain;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import enums.Perfil;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 
 @Entity(name = "TB_CLIENTE")
 public class Cliente extends Pessoa implements Serializable {

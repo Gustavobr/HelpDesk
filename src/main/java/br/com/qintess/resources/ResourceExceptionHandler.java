@@ -1,5 +1,7 @@
 package br.com.qintess.resources;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,6 @@ import br.com.qintess.resources.exceptions.FieldMessage;
 import br.com.qintess.resources.exceptions.ObjectNotFoundException;
 import br.com.qintess.resources.exceptions.StandardError;
 import br.com.qintess.resources.exceptions.ValidationError;
-import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice(basePackageClasses = br.com.qintess.resources.ResourceExceptionHandler.class)
 public class ResourceExceptionHandler {

@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,9 +18,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import br.com.qintess.domain.Pessoa;
 import br.com.qintess.domain.Tecnico;
 import enums.Perfil;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
-import jakarta.validation.constraints.Size;
 
 public class TecnicoDTO extends Pessoa implements Serializable {
 

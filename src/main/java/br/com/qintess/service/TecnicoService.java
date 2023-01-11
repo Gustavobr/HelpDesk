@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -14,8 +17,6 @@ import br.com.qintess.domain.Tecnico;
 import br.com.qintess.repositories.PessoaRepository;
 import br.com.qintess.repositories.TecnicoRepository;
 import br.com.qintess.resources.exceptions.ObjectNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 
 @Service
 public class TecnicoService {
