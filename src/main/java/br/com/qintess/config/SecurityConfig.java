@@ -7,16 +7,23 @@ import javax.naming.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 //@EnableWebSecurity
+@SuppressWarnings("deprecation")
 //@EnableResourceServer	
-
-public class SecurityConfig extends WebSecurityConfiguration {
+@Profile("dev")
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	public static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
 
@@ -40,6 +47,17 @@ public class SecurityConfig extends WebSecurityConfiguration {
 		return (CorsConfigurationSource) source;
 	}
 
+	@Override
+	protected void configure(HttpSecurity http) throws SecurityException, Exception {
+		try {
+			http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "https://sivhelpdesk.herokuapp.com/**")
+					.authenticated().and().authorizeHttpRequests()
+					.antMatchers(HttpMethod.POST, "https://sivhelpdesk.herokuapp.com/**").permitAll();
+		} catch (SecurityException ex) {
+			throw new SecurityException(ex.getCause());
+		}
+	}
+
 	@Bean
 	protected void configure(AuthenticationManagerBuilder auth) throws AuthenticationException, Exception {
 		try {
@@ -50,7 +68,5 @@ public class SecurityConfig extends WebSecurityConfiguration {
 			ex.printStackTrace();
 		}
 	}
-	
-
 
 }
