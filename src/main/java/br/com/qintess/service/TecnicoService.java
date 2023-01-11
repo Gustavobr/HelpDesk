@@ -15,6 +15,7 @@ import br.com.qintess.repositories.PessoaRepository;
 import br.com.qintess.repositories.TecnicoRepository;
 import br.com.qintess.resources.exceptions.ObjectNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 
 @Service
 public class TecnicoService {
@@ -63,6 +64,25 @@ public class TecnicoService {
 
 		}
 		return null;
+	}
+
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) throws ObjectNotFoundException {
+		Tecnico tec = tecnicoRepo.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Técnico não encontrado."));
+		if (tec != null) {
+			return tec;
+		}
+		return null;
+	}
+
+	public Tecnico delete(Integer id) {
+		if (id != null) {
+			Tecnico tec = tecnicoRepo.findById(id)
+					.orElseThrow(() -> new ObjectNotFoundException("Técnico não encontrado."));
+			return tec;
+		}
+		return null;
+
 	}
 
 }

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.qintess.domain.Pessoa;
@@ -127,6 +129,7 @@ public class TecnicoDTO extends Pessoa implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
+	@CPF
 	@NotNull(message = "Favor inserir cpf")
 	protected String cpf;
 	@NotNull(message = "Favor inserir E-mail")

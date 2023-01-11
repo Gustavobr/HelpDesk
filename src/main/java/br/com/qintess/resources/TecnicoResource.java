@@ -8,26 +8,31 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.qintess.DTO.TecnicoDTO;
 import br.com.qintess.domain.Tecnico;
+import br.com.qintess.resources.exceptions.ObjectNotFoundException;
 import br.com.qintess.service.TecnicoService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/tecnicos")
@@ -53,6 +58,30 @@ public class TecnicoResource {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+	}
+
+	@PutMapping(value = "/{id}")
+	@ResponseStatus
+	public ResponseEntity<TecnicoDTO> update(@PathVariable(required = true, name = "ID") Integer id,
+			@Valid @RequestBody TecnicoDTO objDTO) throws ObjectNotFoundException, IOException {
+		Tecnico obj = service.update(id, objDTO);
+		TecnicoDTO tecDTO = new TecnicoDTO(obj);
+
+		URI uriObj = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecDTO.getId())
+				.toUri();
+
+		ResponseEntity.ok().body(new TecnicoDTO(obj));
+		return ResponseEntity.created(uriObj).build();
+
+	}
+
+	@DeleteMapping(value = "/{id}")
+	@ResponseStatus
+	public ResponseEntity<TecnicoDTO> delete(@PathVariable(required = true, name = "ID") Integer id)
+			throws IllegalArgumentException, IOException {
+		Tecnico obj = service.delete(id);
+		TecnicoDTO objDTO = new TecnicoDTO(obj);
+		return ResponseEntity.ok().body(objDTO);
 	}
 
 	@PostMapping
