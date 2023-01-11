@@ -27,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.qintess.DTO.TecnicoDTO;
 import br.com.qintess.domain.Tecnico;
 import br.com.qintess.service.TecnicoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/tecnicos")
@@ -55,7 +56,8 @@ public class TecnicoResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO tecDTO) throws IOException, URISyntaxException {
+	public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO tecDTO)
+			throws IOException, URISyntaxException {
 		Tecnico tecnico = service.create(tecDTO);
 		URI uriObj = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId())
 				.toUri();

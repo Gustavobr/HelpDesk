@@ -12,6 +12,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import br.com.qintess.domain.Pessoa;
 import br.com.qintess.domain.Tecnico;
 import enums.Perfil;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.Size;
 
 public class TecnicoDTO extends Pessoa implements Serializable {
 
@@ -40,6 +43,8 @@ public class TecnicoDTO extends Pessoa implements Serializable {
 	}
 
 	protected Integer id;
+
+	@NotNull(message = "Favor inserir nome do técnico")
 	protected String nome;
 
 	public TecnicoDTO(Tecnico obj) throws IOException {
@@ -122,10 +127,12 @@ public class TecnicoDTO extends Pessoa implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
+	@NotNull(message = "Favor inserir cpf")
 	protected String cpf;
-
+	@NotNull(message = "Favor inserir E-mail")
 	protected String email;
-
+	@NotNull(message = "Digitar Senha")
+	@Size(min = 5, message = "Senha deve ter mínimo de 5 caracteres")
 	protected String senha;
 
 	public Integer getCodigo() {
@@ -140,6 +147,7 @@ public class TecnicoDTO extends Pessoa implements Serializable {
 
 	protected Set<Integer> perfis = new HashSet<>();
 
+	@Null
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 
